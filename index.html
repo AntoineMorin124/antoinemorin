@@ -219,6 +219,45 @@
     }
     .resume-download:hover { opacity: 0.85; }
 
+    /* ── PDF EMBED ── */
+    .pdf-embed-wrapper {
+      max-width: 1100px;
+      margin-top: 4rem;
+    }
+    .pdf-embed-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--grey); font-weight: 600; margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem; border-bottom: 1px solid rgba(138,155,176,0.2);
+    }
+    .pdf-frame-outer {
+      position: relative;
+      border: 1px solid rgba(201,168,76,0.25);
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.1), 0 24px 64px rgba(0,0,0,0.5);
+    }
+    .pdf-frame-outer::before {
+      content: '';
+      position: absolute;
+      top: -3px; left: -3px; right: -3px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), rgba(201,168,76,0.2), transparent);
+    }
+    .pdf-frame-outer iframe {
+      display: block;
+      width: 100%;
+      height: 900px;
+      border: none;
+      background: #1a1a1a;
+    }
+    .pdf-fallback {
+      display: none;
+      padding: 3rem 2rem;
+      text-align: center;
+      background: rgba(255,255,255,0.03);
+    }
+    .pdf-fallback p {
+      color: var(--grey); font-size: 0.9rem; margin-bottom: 1.25rem;
+    }
+
     /* ── PROJECTS ── */
     #projects { background: var(--bg-alt); }
     .projects-grid {
@@ -250,50 +289,6 @@
       background: var(--light-grey); color: var(--slate); font-weight: 500;
     }
 
-    /* ── CONTACT ── */
-    #contact { background: var(--navy); }
-    #contact .section-heading { color: var(--off-white); }
-    .contact-layout {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: 5rem; max-width: 1100px; align-items: start;
-    }
-    .contact-intro { font-size: 1rem; color: var(--grey); line-height: 1.8; margin-bottom: 2.5rem; }
-    .contact-links { display: flex; flex-direction: column; gap: 1.25rem; }
-    .contact-link {
-      display: flex; align-items: center; gap: 1rem;
-      color: var(--light-grey); text-decoration: none; font-size: 0.9rem; transition: color 0.2s;
-    }
-    .contact-link:hover { color: var(--gold); }
-    .contact-link-icon {
-      width: 38px; height: 38px; border: 1px solid rgba(201,168,76,0.3);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: border-color 0.2s;
-    }
-    .contact-link:hover .contact-link-icon { border-color: var(--gold); }
-    .contact-link-icon svg { width: 16px; height: 16px; fill: currentColor; }
-    .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-field label {
-      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--grey); font-weight: 500;
-    }
-    .form-field input, .form-field textarea {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(138,155,176,0.2);
-      color: var(--off-white); padding: 0.8rem 1rem;
-      font-family: 'Inter', sans-serif; font-size: 0.9rem;
-      outline: none; resize: vertical; transition: border-color 0.2s;
-    }
-    .form-field input:focus, .form-field textarea:focus { border-color: var(--gold); }
-    .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(138,155,176,0.5); }
-    .form-submit {
-      align-self: flex-start; padding: 0.85rem 2.5rem;
-      background: var(--gold); color: var(--navy);
-      font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 0.15em; text-transform: uppercase; border: none; cursor: pointer; transition: opacity 0.2s;
-    }
-    .form-submit:hover { opacity: 0.85; }
-
     /* ── FOOTER ── */
     footer {
       background: #070F18; padding: 2rem 5%;
@@ -311,9 +306,9 @@
     @media (max-width: 800px) {
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .resume-columns { grid-template-columns: 1fr; gap: 3rem; }
-      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
       .form-row { grid-template-columns: 1fr; }
       .nav-links { display: none; }
+      .pdf-frame-outer iframe { height: 500px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .fade-up { opacity: 1; transform: none; transition: none; }
@@ -352,12 +347,10 @@
     <p class="hero-eyebrow">Portfolio</p>
     <h1 class="hero-name">Antoine<br/>Morin</h1>
     <p class="hero-title">Junior Financial Analyst &nbsp;·&nbsp; <span>Department of National Defence</span></p>
-    <a href="https://www.linkedin.com/in/antoine-morin-3a8a161a4/" 
-   class="hero-cta" 
-   target="_blank" 
-   rel="noopener noreferrer">
-   LinkedIn
-</a>
+    <a href="https://www.linkedin.com/in/antoine-morin-3a8a161a4/"
+       class="hero-cta"
+       target="_blank"
+       rel="noopener noreferrer">LinkedIn</a>
   </div>
   <div class="scroll-hint">
     <div class="scroll-line"></div>
@@ -464,7 +457,7 @@
         <p class="timeline-org">CSDCEO · Cornwall, ON</p>
         <ul class="timeline-desc">
           <li>Guaranteed the continuity of work for students in the absence of their regular teachers, ensuring their constant progress in learning.</li>
-          <li>My role involves delivering lessons in multiple subject areas, which requires the preparation of relevant and engaging lesson plans tailored to meet the diverse needs of students.</li>
+          <li>Delivered lessons in multiple subject areas, requiring preparation of relevant and engaging lesson plans tailored to meet the diverse needs of students.</li>
         </ul>
       </div>
 
@@ -522,6 +515,16 @@
           <span class="cert-date">May – Jun 2024</span>
         </div>
       </div>
+
+      <!-- PDF EMBED — right column, below certifications -->
+      <p class="resume-col-title" style="margin-top:2.5rem">Full Resume</p>
+      <div class="pdf-frame-outer">
+        <iframe
+          src="resume.pdf"
+          title="Antoine Morin — Full Resume"
+          loading="lazy"
+        ></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -537,12 +540,10 @@
     <div class="project-card">
       <p class="project-tag">Power Platform · CRM · In Progress</p>
       <h3 class="project-title">Internal CRM App</h3>
-      <p class="project-desc">
-        <ul class="project-desc">
-          <li>Designed and developed an internal CRM app to track client and team interactions, improving visibility, accountability, and workflow coordination at ESDC.</li>
-          <li>Built databases using SharePoint Lists, PowerApps, and Excel with automated data capture and dynamic reporting dashboards.</li>
-        </ul>
-      </p>
+      <ul class="project-desc">
+        <li>Designed and developed an internal CRM app to track client and team interactions, improving visibility, accountability, and workflow coordination at ESDC.</li>
+        <li>Built databases using SharePoint Lists, PowerApps, and Excel with automated data capture and dynamic reporting dashboards.</li>
+      </ul>
       <div class="project-tools">
         <span class="tool-chip">PowerApps</span>
         <span class="tool-chip">SharePoint</span>
@@ -554,12 +555,10 @@
     <div class="project-card">
       <p class="project-tag">SAP · Quality Assurance · 2025</p>
       <h3 class="project-title">SAP Script Testing — Major Release</h3>
-      <p class="project-desc">
-        <ul class="project-desc">
-          <li>Executed 100+ test scripts across SAP PM, MM, and IM modules to validate key business processes within DND's DRMIS ERP system.</li>
-          <li>Performed regression testing by updating scripts to address defects and system changes before re-uploading to the test repository.</li>
-        </ul>
-      </p>
+      <ul class="project-desc">
+        <li>Executed 100+ test scripts across SAP PM, MM, and IM modules to validate key business processes within DND's DRMIS ERP system.</li>
+        <li>Performed regression testing by updating scripts to address defects and system changes before re-uploading to the test repository.</li>
+      </ul>
       <div class="project-tools">
         <span class="tool-chip">SAP GUI</span>
         <span class="tool-chip">SAP Fiori</span>
@@ -571,12 +570,10 @@
     <div class="project-card">
       <p class="project-tag">Power BI · Data Visualization · 2024</p>
       <h3 class="project-title">KPI Power BI Dashboard</h3>
-      <p class="project-desc">
-        <ul class="project-desc">
-          <li>Built a Power BI dashboard using Kyndryl's Project Hub database to visualize account KPIs for project control managers.</li>
-          <li>Created DAX formulas to transform raw project data into meaningful performance metrics. The dashboard is used daily by management teams.</li>
-        </ul>
-      </p>
+      <ul class="project-desc">
+        <li>Built a Power BI dashboard using Kyndryl's Project Hub database to visualize account KPIs for project control managers.</li>
+        <li>Created DAX formulas to transform raw project data into meaningful performance metrics. The dashboard is used daily by management teams.</li>
+      </ul>
       <div class="project-tools">
         <span class="tool-chip">PowerBI</span>
         <span class="tool-chip">Access</span>
@@ -606,20 +603,6 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = 'Sent ✓';
-    btn.style.background = '#3a7a4a';
-    btn.style.color = '#fff';
-    setTimeout(() => {
-      btn.textContent = 'Send Message';
-      btn.style.background = '';
-      btn.style.color = '';
-      e.target.reset();
-    }, 3000);
-  }
 </script>
 </body>
 </html>

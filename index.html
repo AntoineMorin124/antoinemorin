@@ -1,388 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Antoine Morin — Junior Financial Analyst</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Antoine Morin — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
-    :root {
-      --navy:      #0D1B2A;
-      --slate:     #1C3A5C;
-      --gold:      #C9A84C;
-      --off-white: #F0EDE6;
-      --grey:      #8A9BB0;
-      --light-grey:#D4DAE3;
-      --bg-alt:    #E8E4DC;
-    }
+  :root{
+    --paper:      #F6F8FA;
+    --paper-soft: #ECF0F4;
+    --ink:        #1E2A38;
+    --ink-soft:   #5A6B7D;
+    --sage:       #4C7A9C;
+    --sage-deep:  #335A75;
+    --sky:        #7C93A8;
+    --apricot:    #5B7A95;
+    --sand:       #DCE4EC;
+    --line:       rgba(30,42,56,0.10);
+    --shadow:     0 18px 40px rgba(30,42,56,0.10);
+    --shadow-sm:  0 8px 20px rgba(30,42,56,0.08);
+    --radius:     22px;
+  }
 
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--navy); overflow-x: hidden; }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;}
+  a{color:inherit;}
+  img{display:block;max-width:100%;}
+  ::selection{background:var(--sand);}
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 0 5%; height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(13,27,42,0); transition: background 0.4s, box-shadow 0.4s;
-    }
-    nav.scrolled { background: rgba(13,27,42,0.97); box-shadow: 0 1px 0 rgba(201,168,76,0.2); }
-    .nav-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--off-white); letter-spacing: 0.04em; opacity: 0; transition: opacity 0.4s; }
-    nav.scrolled .nav-name { opacity: 1; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light-grey); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--gold); }
+  /* ---------- ambient background blobs ---------- */
+  .ambient{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.35;}
+  .blob1{width:520px;height:520px;background:var(--sage);top:-180px;right:-160px;opacity:0.18;}
+  .blob2{width:420px;height:420px;background:var(--sky);top:60vh;left:-180px;opacity:0.16;}
+  .blob3{width:380px;height:380px;background:var(--apricot);bottom:-160px;right:10vw;opacity:0.13;}
 
-    #hero { min-height: 100vh; background: var(--navy); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-    .grid-bg { position: absolute; inset: 0; pointer-events: none; opacity: 0.07; }
-    .grid-bg svg { width: 100%; height: 100%; }
-    .hero-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); opacity: 0.6; }
-    .hero-content { text-align: center; z-index: 1; padding: 2rem; }
-    .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; font-weight: 500; }
-    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 700; color: var(--off-white); line-height: 1.05; margin-bottom: 1.25rem; letter-spacing: -0.01em; }
-    .hero-title { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--grey); font-weight: 300; letter-spacing: 0.05em; margin-bottom: 3rem; }
-    .hero-title span { color: var(--light-grey); font-weight: 400; }
-    .hero-cta { display: inline-block; padding: 0.75rem 2.25rem; border: 1px solid var(--gold); color: var(--gold); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: background 0.25s, color 0.25s; }
-    .hero-cta:hover { background: var(--gold); color: var(--navy); }
-    .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--grey); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
-    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
-    @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:center;
+    padding:0 5%;height:76px;
+    background:rgba(250,247,241,0);
+    transition:background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+  }
+  nav.scrolled{
+    background:rgba(250,247,241,0.85);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 var(--line);
+  }
+  .nav-links{display:flex;align-items:center;gap:2.1rem;list-style:none;}
+  .nav-links a{
+    font-size:0.88rem;font-weight:600;color:var(--ink-soft);
+    text-decoration:none;position:relative;padding:0.3rem 0;
+    transition:color .2s ease;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-2px;height:2px;width:0;
+    background:var(--apricot);transition:width .25s ease;border-radius:2px;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-toggle{display:none;}
 
-    section { padding: 7rem 5%; }
-    .section-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.75rem; }
-    .section-heading { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; color: var(--navy); line-height: 1.15; margin-bottom: 3rem; }
+  section{padding:7.5rem 5%;position:relative;}
+  .wrap{max-width:1140px;margin:0 auto;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    font-size:0.78rem;font-weight:700;letter-spacing:0.04em;
+    color:var(--sage-deep);background:rgba(76,122,156,0.10);
+    padding:0.4rem 0.9rem;border-radius:999px;margin-bottom:1.4rem;
+  }
+  .eyebrow::before{content:'●';font-size:0.55rem;color:var(--apricot);}
+  .heading{
+    font-size:clamp(2rem,3.6vw,2.85rem);font-weight:600;line-height:1.18;
+    color:var(--ink);margin-bottom:1rem;
+  }
+  .sub{font-size:1.05rem;color:var(--ink-soft);max-width:620px;line-height:1.7;}
 
-    #about { background: var(--off-white); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; max-width: 1100px; }
-    .about-photo-block { position: relative; }
-    .about-photo-frame { position: absolute; bottom: -12px; right: -12px; width: 100%; height: 100%; border: 2px solid var(--gold); opacity: 0.35; pointer-events: none; }
-    .about-text p { font-size: 1.05rem; line-height: 1.85; color: #3a4a5c; margin-bottom: 1.4rem; }
-    .about-stats { display: flex; gap: 3rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--light-grey); flex-wrap: wrap; }
-    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1; }
-    .stat-label { font-size: 0.72rem; color: var(--grey); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.4rem; }
+  /* ---------- hero ---------- */
+  #hero{
+    min-height:100vh;display:flex;align-items:center;padding-top:76px;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.25fr 0.9fr;gap:4rem;align-items:center;width:100%;
+  }
+  .hero-grid--solo{
+    grid-template-columns:1fr;text-align:center;justify-content:center;
+  }
+  .hero-grid--solo .hero-eyebrow{justify-content:center;}
+  .hero-grid--solo .hero-actions{justify-content:center;}
+  .hero-grid--solo .hero-sub{margin-left:auto;margin-right:auto;}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:0.6rem;
+    background:var(--paper-soft);border:1px solid var(--line);
+    border-radius:999px;padding:0.5rem 1.1rem;font-size:0.85rem;
+    font-weight:600;color:var(--sage-deep);margin-bottom:1.6rem;
+  }
+  .wave{display:inline-block;animation:wave 2.4s ease-in-out infinite;transform-origin:70% 70%;}
+  @keyframes wave{0%,100%{transform:rotate(0deg);}15%{transform:rotate(14deg);}30%{transform:rotate(-8deg);}45%{transform:rotate(14deg);}60%{transform:rotate(0deg);}}
+  .hero-title{
+    font-size:clamp(3rem,6.4vw,5rem);font-weight:600;line-height:1.05;
+    color:var(--ink);margin-bottom:0.9rem;letter-spacing:-0.01em;
+  }
+  .hero-role{
+    font-size:clamp(1.15rem,2vw,1.4rem);font-weight:600;color:var(--sage-deep);
+    line-height:1.5;margin-bottom:0.6rem;
+  }
+  .hero-sub{font-size:1.1rem;color:var(--ink-soft);line-height:1.7;max-width:540px;margin-bottom:2.6rem;font-style:italic;}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    padding:0.85rem 1.7rem;border-radius:999px;background:var(--sage-deep);
+    color:var(--paper);font-weight:700;font-size:0.92rem;text-decoration:none;
+    box-shadow:var(--shadow-sm);transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    padding:0.85rem 1.7rem;border-radius:999px;background:transparent;
+    border:1.5px solid var(--line);color:var(--ink);font-weight:700;font-size:0.92rem;
+    text-decoration:none;transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--sage);background:rgba(76,122,156,0.06);}
 
-    #resume { background: var(--navy); }
-    #resume .section-heading { color: var(--off-white); }
-    .resume-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1100px; }
-    .resume-col-title { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); font-weight: 600; margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(138,155,176,0.2); }
-    .timeline-item { position: relative; padding-left: 1.5rem; margin-bottom: 2.5rem; }
-    .timeline-item::before { content: ''; position: absolute; left: 0; top: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
-    .timeline-item::after { content: ''; position: absolute; left: 3px; top: 18px; width: 1px; height: calc(100% + 0.5rem); background: rgba(201,168,76,0.2); }
-    .timeline-item:last-child::after { display: none; }
-    .timeline-period { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; font-weight: 500; margin-bottom: 0.4rem; }
-    .timeline-role { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--off-white); font-weight: 600; margin-bottom: 0.25rem; }
-    .timeline-org { font-size: 0.85rem; color: var(--grey); margin-bottom: 0.75rem; }
-    .timeline-desc { font-size: 0.875rem; color: #7A8FA6; line-height: 1.7; }
-    .timeline-desc li { margin-left: 1rem; margin-bottom: 0.35rem; }
 
-    .skills-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-    .skill-tag { font-size: 0.75rem; letter-spacing: 0.08em; padding: 0.45rem 1rem; border: 1px solid rgba(201,168,76,0.3); color: var(--light-grey); background: rgba(201,168,76,0.04); text-transform: uppercase; font-weight: 500; }
+  /* ---------- biography ---------- */
+  #biography{background:var(--paper-soft);}
+  .fact-row{
+    display:flex;justify-content:center;align-items:stretch;gap:1.4rem;
+    flex-wrap:wrap;margin:2.6rem 0 3.5rem;
+  }
+  .fact-row .fact{flex:1 1 280px;max-width:320px;}
+  .bio-grid{display:grid;grid-template-columns:0.78fr 1.22fr;gap:3.5rem;align-items:center;}
+  .bio-card{
+    background:var(--paper);border-radius:var(--radius);padding:2.4rem;
+    box-shadow:var(--shadow-sm);border:1px solid var(--line);
+  }
+  .bio-card p{font-size:1.02rem;line-height:1.85;color:var(--ink-soft);margin-bottom:1.2rem;}
+  .bio-card p:last-child{margin-bottom:0;}
+  .bio-photo-card{
+    border-radius:20px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:var(--shadow-sm);background:var(--sand);padding:10px;
+  }
+  .bio-photo-card img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:13px;}
+  .fact{
+    background:var(--paper);border-radius:18px;padding:1.3rem 1.5rem;
+    border:1px solid var(--line);box-shadow:var(--shadow-sm);
+    display:flex;align-items:center;gap:1rem;
+  }
+  .fact-icon{
+    width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;flex-shrink:0;
+  }
+  .fact-row .fact:nth-child(1) .fact-icon{background:rgba(76,122,156,0.15);}
+  .fact-row .fact:nth-child(2) .fact-icon{background:rgba(124,147,168,0.18);}
+  .fact-row .fact:nth-child(3) .fact-icon{background:rgba(91,122,149,0.16);}
+  .fact-title{font-weight:700;font-size:0.95rem;color:var(--ink);}
+  .fact-sub{font-size:0.84rem;color:var(--ink-soft);margin-top:0.1rem;}
 
-    .cert-list { margin-top: 2.5rem; }
-    .cert-item { display: flex; justify-content: space-between; align-items: baseline; padding: 0.8rem 0; border-bottom: 1px solid rgba(138,155,176,0.12); gap: 1rem; }
-    .cert-name { font-size: 0.85rem; color: var(--light-grey); font-weight: 500; }
-    .cert-date { font-size: 0.72rem; color: var(--grey); white-space: nowrap; letter-spacing: 0.05em; }
-    .cert-in-progress { color: var(--gold); font-style: italic; }
+  /* ---------- experience (signature thread) ---------- */
+  #experience{background:var(--paper);}
+  .thread{position:relative;padding-left:2.6rem;}
+  .thread::before{
+    content:'';position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+    background:repeating-linear-gradient(to bottom, var(--sage) 0 6px, transparent 6px 12px);
+    border-radius:2px;
+  }
+  .thread-item{position:relative;padding-bottom:3rem;}
+  .thread-item:last-child{padding-bottom:0;}
+  .thread-dot{
+    position:absolute;left:-2.6rem;top:0.3rem;width:20px;height:20px;border-radius:50%;
+    background:var(--paper);border:3px solid var(--sage);display:flex;align-items:center;justify-content:center;
+  }
+  .thread-item.current .thread-dot{border-color:var(--apricot);background:var(--apricot);box-shadow:0 0 0 5px rgba(91,122,149,0.18);}
+  .thread-card{
+    background:var(--paper-soft);border-radius:var(--radius);padding:1.8rem 2rem;
+    border:1px solid var(--line);transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .thread-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);}
+  .thread-period{
+    display:inline-block;font-size:0.78rem;font-weight:700;color:var(--sage-deep);
+    background:rgba(76,122,156,0.12);padding:0.25rem 0.75rem;border-radius:999px;margin-bottom:0.7rem;
+  }
+  .thread-item.current .thread-period{color:var(--apricot);background:rgba(91,122,149,0.14);}
+  .thread-role{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;color:var(--ink);margin-bottom:0.2rem;}
+  .thread-org{font-size:0.9rem;color:var(--ink-soft);margin-bottom:0.9rem;font-weight:500;}
+  .thread-desc{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+  .thread-desc li{position:relative;padding-left:1.2rem;font-size:0.92rem;color:var(--ink-soft);line-height:1.6;}
+  .thread-desc li::before{content:'—';position:absolute;left:0;color:var(--sage);}
 
-    .resume-download { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 2rem; background: var(--gold); color: var(--navy); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
-    .resume-download:hover { opacity: 0.85; }
+  /* ---------- skills & certifications ---------- */
+  #skills{background:var(--paper-soft);}
+  .skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
+  .stamp-list{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;align-content:start;}
+  .stamp{
+    display:flex;align-items:center;gap:0.85rem;
+    font-size:0.92rem;font-weight:700;padding:1.1rem 1.4rem;border-radius:16px;
+    border:1px solid var(--line);color:var(--ink);background:var(--paper);
+    box-shadow:var(--shadow-sm);
+    transition:transform .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+  }
+  .stamp::before{
+    content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--sage);
+  }
+  .stamp:nth-child(3n+2)::before{background:var(--sky);}
+  .stamp:nth-child(3n)::before{background:var(--apricot);}
+  .stamp:hover{transform:translateX(4px);border-color:var(--sage);color:var(--sage-deep);box-shadow:var(--shadow);}
 
-    .pdf-frame-outer { position: relative; border: 1px solid rgba(201,168,76,0.25); box-shadow: 0 0 0 1px rgba(201,168,76,0.1), 0 24px 64px rgba(0,0,0,0.5); }
-    .pdf-frame-outer::before { content: ''; position: absolute; top: -3px; left: -3px; right: -3px; height: 3px; background: linear-gradient(90deg, var(--gold), rgba(201,168,76,0.2), transparent); }
-    .pdf-frame-outer iframe { display: block; width: 100%; height: 580px; border: none; background: #1a1a1a; }
+  .cert-card{
+    background:var(--paper);border-radius:16px;padding:1.1rem 1.4rem;
+    border:1px solid var(--line);display:flex;align-items:center;
+    gap:1rem;margin-bottom:0.85rem;box-shadow:var(--shadow-sm);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .cert-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+  .cert-card:last-child{margin-bottom:0;}
+  .cert-logo{
+    width:42px;height:42px;border-radius:11px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:#fff;
+  }
+  .cert-logo svg, .cert-logo img{width:26px;height:26px;object-fit:contain;}
+  .cert-body{flex:1;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;}
+  .cert-name{font-weight:700;font-size:0.92rem;color:var(--ink);}
+  .cert-date{font-size:0.78rem;color:var(--ink-soft);white-space:nowrap;font-weight:600;}
+  .cert-date.progress{color:var(--apricot);}
+  .badge-progress{
+    font-size:0.68rem;font-weight:700;color:var(--apricot);background:rgba(91,122,149,0.14);
+    padding:0.2rem 0.6rem;border-radius:999px;margin-left:0.5rem;
+  }
 
-    #projects { background: var(--bg-alt); }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; }
-    .project-card { background: var(--off-white); padding: 2.25rem; border-top: 3px solid transparent; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
-    .project-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(13,27,42,0.1); }
-    .project-tag { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 1rem; }
-    .project-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; }
-    .project-desc { font-size: 0.875rem; color: #5a6a7a; line-height: 1.7; margin-bottom: 1.5rem; }
-    .project-desc li { margin-left: 1.1rem; margin-bottom: 0.3rem; }
-    .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .tool-chip { font-size: 0.7rem; padding: 0.25rem 0.65rem; background: var(--light-grey); color: var(--slate); font-weight: 500; }
+  /* ---------- resume ---------- */
+  #resume{background:var(--paper);}
+  .resume-panel{
+    display:grid;grid-template-columns:0.9fr 1.1fr;gap:3rem;align-items:center;
+    background:var(--paper-soft);border-radius:28px;padding:3rem;border:1px solid var(--line);
+  }
+  .resume-copy p{color:var(--ink-soft);line-height:1.75;margin-bottom:1.6rem;font-size:1rem;}
+  .pdf-frame-outer{
+    position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:var(--shadow);background:var(--ink);
+  }
+  .pdf-frame-outer iframe{display:block;width:100%;height:480px;border:none;}
 
-    footer { background: #070F18; padding: 2rem 5%; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(201,168,76,0.1); }
-    .footer-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--grey); }
-    .footer-copy { font-size: 0.75rem; color: #3a4a5c; }
+  /* ---------- projects ---------- */
+  #projects{background:var(--paper-soft);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.6rem;}
+  .project-card{
+    background:var(--paper);border-radius:var(--radius);padding:2.1rem;
+    border:1px solid var(--line);box-shadow:var(--shadow-sm);
+    transition:transform .22s ease, box-shadow .22s ease;
+  }
+  .project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+  .project-tag{
+    display:inline-block;font-size:0.72rem;font-weight:700;color:var(--sage-deep);
+    background:rgba(76,122,156,0.12);padding:0.28rem 0.75rem;border-radius:999px;margin-bottom:1rem;
+  }
+  .project-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;color:var(--ink);margin-bottom:0.7rem;}
+  .project-desc{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.4rem;}
+  .project-desc li{position:relative;padding-left:1.1rem;font-size:0.88rem;color:var(--ink-soft);line-height:1.65;}
+  .project-desc li::before{content:'—';position:absolute;left:0;color:var(--sky);}
+  .project-tools{display:flex;flex-wrap:wrap;gap:0.4rem;}
+  .tool-chip{font-size:0.72rem;padding:0.3rem 0.7rem;border-radius:999px;background:var(--sand);color:var(--ink);font-weight:700;}
 
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  /* ---------- contact ---------- */
+  #contact{background:var(--ink);color:var(--paper);text-align:center;}
+  #contact .eyebrow{background:rgba(250,247,241,0.1);color:var(--sand);}
+  #contact .eyebrow::before{color:var(--apricot);}
+  #contact .heading{color:var(--paper);}
+  #contact .sub{color:rgba(250,247,241,0.7);margin:0 auto 2.4rem;}
+  .contact-card{
+    max-width:560px;margin:0 auto;background:rgba(250,247,241,0.06);
+    border:1px solid rgba(250,247,241,0.14);border-radius:24px;padding:2.6rem;
+  }
+  .contact-links{display:flex;flex-direction:column;gap:0.9rem;margin-bottom:1.6rem;}
+  .contact-link{
+    display:flex;align-items:center;gap:0.9rem;background:rgba(250,247,241,0.05);
+    border:1px solid rgba(250,247,241,0.12);border-radius:14px;padding:1rem 1.3rem;
+    text-decoration:none;color:var(--paper);font-weight:600;font-size:0.95rem;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .contact-link:hover{background:rgba(250,247,241,0.1);transform:translateY(-2px);}
+  .contact-icon{
+    width:38px;height:38px;border-radius:10px;background:rgba(250,247,241,0.12);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .contact-foot{font-size:0.82rem;color:rgba(250,247,241,0.5);}
 
-    @media (max-width: 800px) {
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .resume-columns { grid-template-columns: 1fr; gap: 3rem; }
-      .nav-links { display: none; }
-      .pdf-frame-outer iframe { height: 400px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .fade-up { opacity: 1; transform: none; transition: none; }
-      .scroll-line { animation: none; }
-    }
-  </style>
+  footer{
+    background:var(--ink);padding:1.6rem 5% 2.4rem;text-align:center;
+    border-top:1px solid rgba(250,247,241,0.1);
+  }
+  .footer-copy{font-size:0.78rem;color:rgba(250,247,241,0.45);}
+
+  .fade-up{opacity:0;transform:translateY(26px);transition:opacity .65s ease, transform .65s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .bio-grid{grid-template-columns:1fr;}
+    .bio-photo-card{max-width:280px;margin:0 auto;}
+    .skills-layout{grid-template-columns:1fr;}
+    .stamp-list{grid-template-columns:1fr;}
+    .resume-panel{grid-template-columns:1fr;padding:2rem;}
+    .nav-links{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .fade-up{opacity:1;transform:none;transition:none;}
+    .wave{animation:none;}
+  }
+</style>
 </head>
 <body>
 
+<div class="ambient">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
 <nav id="main-nav">
-  <span class="nav-name">Antoine Morin</span>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
+    <li><a href="#biography">Biography</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#resume">Resume</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
+<!-- ================= HERO / TITLE ================= -->
 <section id="hero">
-  <div class="grid-bg">
-    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <defs>
-        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#C9A84C" stroke-width="0.5"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grid)"/>
-      <polyline points="0,420 120,380 240,350 360,300 440,310 520,250 620,200 720,220 820,160 920,140 1100,80 1300,60 1500,40 1700,20" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
-    </svg>
-  </div>
-  <div class="hero-accent"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Portfolio</p>
-    <h1 class="hero-name">Antoine<br/>Morin</h1>
-    <p class="hero-title">Junior Financial Analyst &nbsp;·&nbsp; <span>Department of National Defence</span></p>
-    <a href="https://www.linkedin.com/in/antoine-morin-3a8a161a4/" class="hero-cta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-  </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
+  <div class="wrap hero-grid hero-grid--solo">
+    <div>
+      <span class="hero-eyebrow"><span class="wave">👋</span> Based in Ottawa, Canada</span>
+      <h1 class="hero-title">Antoine Morin</h1>
+      <p class="hero-role">Junior Financial Analyst at DND, serving the CAF</p>
+      <p class="hero-sub">Aspiring Master's student.</p>
+      <div class="hero-actions">
+        <a href="#biography" class="btn-primary">Get to know me ↓</a>
+        <a href="https://www.linkedin.com/in/antoine-morin-3a8a161a4/" target="_blank" rel="noopener noreferrer" class="btn-ghost">Connect on LinkedIn</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="about">
-  <div class="fade-up">
-    <p class="section-label">Who I am</p>
-    <h2 class="section-heading">About Me</h2>
-  </div>
-  <div class="about-grid fade-up">
-    <div class="about-photo-block">
-      <img src="About.jpeg" alt="Antoine Morin" style="width:100%; aspect-ratio:3/4; object-fit:cover; display:block;" />
-      <div class="about-photo-frame"></div>
+<!-- ================= BIOGRAPHY ================= -->
+<section id="biography">
+  <div class="wrap">
+    <div class="fade-up" style="text-align:center;">
+      <span class="eyebrow">Who I am</span>
+      <h2 class="heading">A bit about me</h2>
     </div>
-    <div class="about-text">
-      <p>I'm a 4th-year Bachelor of Commerce student at the Telfer School of Management, University of Ottawa, specializing in Finance and Business Technology Management. I'm bilingual (French &amp; English) with hands-on experience in analytics, ERP systems, and project management across both the federal government and the private sector.</p>
-      <p>Currently, I work as a Junior Financial Analyst at DND ADM(MAT), where I assist with data reconciliation, financial tracking, and report preparation for a team responsible for monitoring contractors, advance payments, and inventory. I also bring experience as a Web Analytics Officer at Employment and Social Development Canada and as a Software Tester at the Department of National Defence.</p>
-      <p>I'm passionate about turning complex data into clear, actionable insights — whether through a Power BI dashboard, an automated workflow, or a well-structured financial report. I'm always looking to grow my skills in data analytics, public sector finance, and business technology.</p>
-      <div class="about-stats">
+
+    <div class="fact-row fade-up">
+      <div class="fact">
+        <div class="fact-icon">🎓</div>
         <div>
-          <div class="stat-num">Telfer</div>
-          <div class="stat-label">University of Ottawa<br/>B.Com — Finance & BTM</div>
+          <div class="fact-title">Telfer School of Management</div>
+          <div class="fact-sub">B.Com — Finance &amp; Business Technology, 2027</div>
         </div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">📍</div>
         <div>
-          <div class="stat-num">Ottawa</div>
-          <div class="stat-label">Based in<br/>Ontario, Canada</div>
+          <div class="fact-title">Ottawa, Ontario</div>
+          <div class="fact-sub">Working across federal departments</div>
         </div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">🗣️</div>
         <div>
-          <div class="stat-num">FR/EN</div>
-          <div class="stat-label">Bilingual<br/>French &amp; English</div>
+          <div class="fact-title">Bilingual</div>
+          <div class="fact-sub">Fluent in French &amp; English</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bio-grid fade-up">
+      <div class="bio-photo-card">
+        <img src="About.jpeg" alt="Antoine Morin" />
+      </div>
+      <div class="bio-card">
+        <p>I'm a 4th-year Bachelor of Commerce student at the Telfer School of Management, University of Ottawa, specializing in Finance and Business Technology Management. I'm bilingual with hands-on experience in analytics, ERP systems, and project management across both the federal government and the private sector.</p>
+        <p>Right now, I work as a Junior Financial Analyst at DND ADM(MAT), where I help reconcile data, track finances, and prepare reports for a team monitoring contractors, advance payments, and inventory. I've also brought experience as a Web Analytics Officer at Employment and Social Development Canada and as a Software Tester at the Department of National Defence.</p>
+        <p>What I love most is turning complex data into something clear and useful — whether that's a Power BI dashboard, an automated workflow, or a well-structured report. I'm always looking to grow in data analytics, public sector finance, and business technology.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK EXPERIENCE ================= -->
+<section id="experience">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Where I've worked</span>
+      <h2 class="heading">Work Experience</h2>
+      <p class="sub">A timeline of roles that shaped how I think about data, systems, and public service.</p>
+    </div>
+
+    <div class="thread fade-up" style="margin-top:3rem;">
+
+      <div class="thread-item current">
+        <div class="thread-dot"></div>
+        <div class="thread-card">
+          <span class="thread-period">May 2025 – Present</span>
+          <p class="thread-role">Junior Financial Analyst</p>
+          <p class="thread-org">Department of National Defence (ADM MAT) · Ottawa, ON</p>
+          <ul class="thread-desc">
+            <li>Assist with data reconciliation, financial tracking, and report preparation for a team monitoring contractors, advance payments, and inventory.</li>
+            <li>Support preparation of monthly, quarterly, semi-annual, and annual financial reports and contribute to Office of the Auditor General audit support.</li>
+            <li>Verify information across databases and maintain accurate financial records using SAP, Excel, Access, and Power BI.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="thread-item">
+        <div class="thread-dot"></div>
+        <div class="thread-card">
+          <span class="thread-period">Sept. 2025 – Apr. 2026</span>
+          <p class="thread-role">Junior Web Analytics Officer</p>
+          <p class="thread-org">Employment and Social Development Canada · Gatineau, QC</p>
+          <ul class="thread-desc">
+            <li>Support and lead Analytics Services projects, including developing a CRM model and reporting on Adobe Analytics insights to inform business decisions.</li>
+            <li>Serve as acting coordinator for client onboarding, managing the full Adobe Analytics solution lifecycle from initiation and testing to launch.</li>
+            <li>Apply working knowledge of HTML and JavaScript to interpret metadata and tracking snippets.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="thread-item">
+        <div class="thread-dot"></div>
+        <div class="thread-card">
+          <span class="thread-period">Jan. 2025 – Aug. 2025</span>
+          <p class="thread-role">Junior Software Tester</p>
+          <p class="thread-org">Department of National Defence · Ottawa, ON</p>
+          <ul class="thread-desc">
+            <li>Ensured quality and functionality of SAP systems by executing test scripts, analyzing results, and resolving issues to meet business process requirements.</li>
+            <li>Supported the Testing Management Team by updating, cleaning, and uploading scripts during release cycles within DRMIS (DND's ERP system).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="thread-item">
+        <div class="thread-dot"></div>
+        <div class="thread-card">
+          <span class="thread-period">May 2024 – Aug. 2024</span>
+          <p class="thread-role">Project Manager Intern</p>
+          <p class="thread-org">Kyndryl · Ottawa, ON</p>
+          <ul class="thread-desc">
+            <li>Created Power BI dashboards for multiple internal client account teams and performed analyses using Excel.</li>
+            <li>Built and managed 80+ educational and repository pages on the internal SharePoint site as part of the Client Account Vault initiative.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="thread-item">
+        <div class="thread-dot"></div>
+        <div class="thread-card">
+          <span class="thread-period">May 2023 – Jun. 2024</span>
+          <p class="thread-role">Supply Teacher</p>
+          <p class="thread-org">CSDCEO · Cornwall, ON</p>
+          <ul class="thread-desc">
+            <li>Guaranteed the continuity of work for students in the absence of their regular teachers, ensuring their constant progress in learning.</li>
+            <li>Delivered lessons in multiple subject areas, requiring preparation of relevant and engaging lesson plans tailored to meet diverse student needs.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS & CERTIFICATIONS ================= -->
+<section id="skills">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">What I bring</span>
+      <h2 class="heading">Skills &amp; Certifications</h2>
+    </div>
+    <div class="skills-layout fade-up">
+      <div>
+        <p style="font-weight:700; margin-bottom:1.1rem; color:var(--ink);">Skills &amp; Tools</p>
+        <div class="stamp-list">
+          <span class="stamp">SAP ERP</span>
+          <span class="stamp">Microsoft 365</span>
+          <span class="stamp">Power Platform</span>
+          <span class="stamp">Project Management</span>
+          <span class="stamp">Communication &amp; Presenting</span>
+          <span class="stamp">Teamwork</span>
+          <span class="stamp">Adobe Analytics</span>
+          <span class="stamp">SQL &amp; DB Management</span>
+          <span class="stamp">Web Programming &amp; Design</span>
+          <span class="stamp">Creative Thinking</span>
+          <span class="stamp">French / English</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:700; margin-bottom:1.1rem; color:var(--ink);">Certifications</p>
+        <div class="cert-card">
+          <div class="cert-logo" style="background:#3B19E6;">
+            <img src="assets/bloomberg-logo.png" alt="Bloomberg" />
+          </div>
+          <div class="cert-body">
+            <span class="cert-name">Bloomberg Spreadsheet Analysis Certificate</span>
+            <span class="cert-date progress">In Progress</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-logo" style="background:#fff;border:1px solid var(--line);">
+            <svg viewBox="0 0 48 48" width="22" height="22"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.32-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.68 28.18c-.43-1.3-.68-2.69-.68-4.12s.24-2.81.68-4.12v-5.7H4.34A22.05 22.05 0 002 24.06c0 3.56.85 6.92 2.34 9.86l7.34-5.74z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.18l7.34 5.7c1.74-5.2 6.59-9.13 12.32-9.13z"/></svg>
+          </div>
+          <div class="cert-body">
+            <span class="cert-name">Google Data Analytics Professional Certificate</span>
+            <span class="cert-date">Oct 2025 – Jun 2026</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-logo" style="background:var(--sky);">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 14l4-4 3 3 5-6 4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="11" r="1.4" fill="#fff"/></svg>
+          </div>
+          <div class="cert-body">
+            <span class="cert-name">Market Insights / Competitive Intelligence Certificate</span>
+            <span class="cert-date">Sept – Dec 2024</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-logo" style="background:#0a0a23;">
+            <img src="assets/freecodecamp-logo.png" alt="freeCodeCamp" />
+          </div>
+          <div class="cert-body">
+            <span class="cert-name">FreeCodeCamp Responsive Web Design Certificate</span>
+            <span class="cert-date">Jul – Aug 2024</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-logo" style="background:#000;">
+            <img src="assets/technation-logo.png" alt="TECHNATION" />
+          </div>
+          <div class="cert-body">
+            <span class="cert-name">TECHNATION — 9 Student Ready Modules</span>
+            <span class="cert-date">May – Jun 2024</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================= RESUME ================= -->
 <section id="resume">
-  <div class="fade-up">
-    <p class="section-label">Background</p>
-    <h2 class="section-heading" style="color:var(--off-white)">Resume</h2>
-  </div>
-  <div class="resume-columns fade-up">
-
-    <!-- LEFT: Experience -->
-    <div>
-      <p class="resume-col-title">Experience</p>
-
-      <div class="timeline-item">
-        <p class="timeline-period">May 2025 – Present</p>
-        <p class="timeline-role">Junior Financial Analyst</p>
-        <p class="timeline-org">Department of National Defence (ADM MAT) · Ottawa, ON</p>
-        <ul class="timeline-desc">
-          <li>Assist with data reconciliation, financial tracking, and report preparation for a team monitoring contractors, advance payments, and inventory.</li>
-          <li>Support preparation of monthly, quarterly, semi-annual, and annual financial reports and contribute to Office of the Auditor General audit support.</li>
-          <li>Verify information across databases and maintain accurate financial records using SAP, Excel, Access, and Power BI.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <p class="timeline-period">Sept. 2025 – Present</p>
-        <p class="timeline-role">Junior Web Analytics Officer</p>
-        <p class="timeline-org">Employment and Social Development Canada · Gatineau, QC</p>
-        <ul class="timeline-desc">
-          <li>Support and lead Analytics Services projects, including developing a CRM model and reporting on Adobe Analytics insights to inform business decisions.</li>
-          <li>Serve as acting coordinator for client onboarding, managing the full Adobe Analytics solution lifecycle from initiation and testing to launch.</li>
-          <li>Apply working knowledge of HTML and JavaScript to interpret metadata and tracking snippets.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <p class="timeline-period">Jan. 2025 – Aug. 2025</p>
-        <p class="timeline-role">Junior Software Tester</p>
-        <p class="timeline-org">Department of National Defence · Ottawa, ON</p>
-        <ul class="timeline-desc">
-          <li>Ensured quality and functionality of SAP systems by executing test scripts, analyzing results, and resolving issues to meet business process requirements.</li>
-          <li>Supported the Testing Management Team by updating, cleaning, and uploading scripts during release cycles within DRMIS (DND's ERP system).</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <p class="timeline-period">May 2024 – Aug. 2024</p>
-        <p class="timeline-role">Project Manager Intern</p>
-        <p class="timeline-org">Kyndryl · Ottawa, ON</p>
-        <ul class="timeline-desc">
-          <li>Created Power BI dashboards for multiple internal client account teams and performed analyses using Excel.</li>
-          <li>Built and managed 80+ educational and repository pages on the internal SharePoint site as part of the Client Account Vault initiative.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <p class="timeline-period">May 2023 – Jun. 2024</p>
-        <p class="timeline-role">Supply Teacher</p>
-        <p class="timeline-org">CSDCEO · Cornwall, ON</p>
-        <ul class="timeline-desc">
-          <li>Guaranteed the continuity of work for students in the absence of their regular teachers, ensuring their constant progress in learning.</li>
-          <li>Delivered lessons in multiple subject areas, requiring preparation of relevant and engaging lesson plans tailored to meet the diverse needs of students.</li>
-        </ul>
-      </div>
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">The full picture</span>
+      <h2 class="heading">Resume</h2>
     </div>
-
-    <!-- RIGHT: Education + Skills + Certs + PDF + Download -->
-    <div>
-      <p class="resume-col-title">Education</p>
-      <div class="timeline-item">
-        <p class="timeline-period">2022 – June 2027 (Expected)</p>
-        <p class="timeline-role">Bachelor of Commerce</p>
-        <p class="timeline-org">Finance & Business Technology Management · Telfer School of Management, University of Ottawa</p>
-        <p class="timeline-desc">Relevant courses: Data Mining, Business Analytics, Application of IT in Management, Statistics I &amp; II, Corporate Finance, Operations Management.</p>
-      </div>
-
-      <p class="resume-col-title" style="margin-top:2.5rem">Skills &amp; Tools</p>
-      <div class="skills-list">
-        <span class="skill-tag">SAP ERP</span>
-        <span class="skill-tag">Microsoft 365</span>
-        <span class="skill-tag">Power Platform</span>
-        <span class="skill-tag">Project Management</span>
-        <span class="skill-tag">Communication & Presenting</span>
-        <span class="skill-tag">Teamwork</span>
-        <span class="skill-tag">Adobe Analytics</span>
-        <span class="skill-tag">SQL & DB Management</span>
-        <span class="skill-tag">Web Programing & Design</span>
-        <span class="skill-tag">Creative</span>
-        <span class="skill-tag">French / English</span>
-      </div>
-
-      <p class="resume-col-title" style="margin-top:2.5rem">Certifications</p>
-      <div class="cert-list">
-        <div class="cert-item">
-          <span class="cert-name">Bloomberg Spreadsheet Analysis Certificate</span>
-          <span class="cert-date cert-in-progress">In Progress</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">Google Data Analytics Professional Certificate</span>
-          <span class="cert-date">Oct 2025 - June 2026</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">Market Insights / Competitive Intelligence Certificate</span>
-          <span class="cert-date">Sept – Dec 2024</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">FreeCodeCamp Responsive Web Design Developer Certificate</span>
-          <span class="cert-date">Jul – Aug 2024</span>
-        </div>
-        <div class="">
-          <span class="cert-name">TECHNATION — 9 Student Ready Modules</span>
-          <span class="cert-date">May – Jun 2024</span>
-        </div>
-      </div>
-
-      <p class="resume-col-title" style="margin-top:2.5rem">Full Resume</p>
-      <div class="pdf-frame-outer">
-        <iframe src="resume.pdf" title="Antoine Morin — Full Resume" loading="lazy"></iframe>
-      </div>
-      <div style="display:flex; justify-content:center; margin-top:1.25rem;">
-        <a href="resume.pdf" download="Antoine_Morin_Resume.pdf" class="resume-download">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    <div class="resume-panel fade-up">
+      <div class="resume-copy">
+        <p>Want the full rundown? My resume covers everything above in detail — roles, dates, education, and the tools I use day to day. Have a look right here, or download a copy to keep.</p>
+        <a href="resume.pdf" download="Antoine_Morin_Resume.pdf" class="btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           Download Full Resume
         </a>
       </div>
+      <div class="pdf-frame-outer">
+        <iframe src="resume.pdf" title="Antoine Morin — Full Resume" loading="lazy"></iframe>
+      </div>
     </div>
-
   </div>
 </section>
 
+<!-- ================= PROJECTS ================= -->
 <section id="projects">
-  <div class="fade-up">
-    <p class="section-label">Selected Work</p>
-    <h2 class="section-heading">Projects</h2>
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Selected work</span>
+      <h2 class="heading">Projects</h2>
+    </div>
+    <div class="projects-grid fade-up">
+
+      <div class="project-card">
+        <span class="project-tag">Power Platform · CRM · In Progress</span>
+        <h3 class="project-title">Internal CRM App</h3>
+        <ul class="project-desc">
+          <li>Designed and developed an internal CRM app to track client and team interactions, improving visibility, accountability, and workflow coordination at ESDC.</li>
+          <li>Built databases using SharePoint Lists, PowerApps, and Excel with automated data capture and dynamic reporting dashboards.</li>
+        </ul>
+        <div class="project-tools">
+          <span class="tool-chip">PowerApps</span>
+          <span class="tool-chip">SharePoint</span>
+          <span class="tool-chip">Power Automate</span>
+          <span class="tool-chip">Excel</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">SAP · Quality Assurance · 2025</span>
+        <h3 class="project-title">SAP Script Testing — Major Release</h3>
+        <ul class="project-desc">
+          <li>Executed 100+ test scripts across SAP PM, MM, and IM modules to validate key business processes within DND's DRMIS ERP system.</li>
+          <li>Performed regression testing by updating scripts to address defects and system changes before re-uploading to the test repository.</li>
+        </ul>
+        <div class="project-tools">
+          <span class="tool-chip">SAP GUI</span>
+          <span class="tool-chip">SAP Fiori</span>
+          <span class="tool-chip">ALM</span>
+          <span class="tool-chip">Excel</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Power BI · Data Visualization · 2024</span>
+        <h3 class="project-title">KPI Power BI Dashboard</h3>
+        <ul class="project-desc">
+          <li>Built a Power BI dashboard using Kyndryl's Project Hub database to visualize account KPIs for project control managers.</li>
+          <li>Created DAX formulas to transform raw project data into meaningful performance metrics, used daily by management teams.</li>
+        </ul>
+        <div class="project-tools">
+          <span class="tool-chip">Power BI</span>
+          <span class="tool-chip">Access</span>
+          <span class="tool-chip">Excel</span>
+          <span class="tool-chip">PowerApps</span>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div class="projects-grid fade-up">
+</section>
 
-    <div class="project-card">
-      <p class="project-tag">Power Platform · CRM · In Progress</p>
-      <h3 class="project-title">Internal CRM App</h3>
-      <ul class="project-desc">
-        <li>Designed and developed an internal CRM app to track client and team interactions, improving visibility, accountability, and workflow coordination at ESDC.</li>
-        <li>Built databases using SharePoint Lists, PowerApps, and Excel with automated data capture and dynamic reporting dashboards.</li>
-      </ul>
-      <div class="project-tools">
-        <span class="tool-chip">PowerApps</span>
-        <span class="tool-chip">SharePoint</span>
-        <span class="tool-chip">Power Automate</span>
-        <span class="tool-chip">Excel</span>
-      </div>
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Let's talk</span>
+      <h2 class="heading">Get in touch</h2>
+      <p class="sub">Whether it's about a role, a project, or just public sector data nerding out — I'd love to hear from you.</p>
     </div>
-
-    <div class="project-card">
-      <p class="project-tag">SAP · Quality Assurance · 2025</p>
-      <h3 class="project-title">SAP Script Testing — Major Release</h3>
-      <ul class="project-desc">
-        <li>Executed 100+ test scripts across SAP PM, MM, and IM modules to validate key business processes within DND's DRMIS ERP system.</li>
-        <li>Performed regression testing by updating scripts to address defects and system changes before re-uploading to the test repository.</li>
-      </ul>
-      <div class="project-tools">
-        <span class="tool-chip">SAP GUI</span>
-        <span class="tool-chip">SAP Fiori</span>
-        <span class="tool-chip">ALM</span>
-        <span class="tool-chip">Excel</span>
+    <div class="contact-card fade-up">
+      <div class="contact-links">
+        <a href="mailto:amori113@uottawa.ca" class="contact-link">
+          <span class="contact-icon">✉️</span> amori113@uottawa.ca
+        </a>
+        <a href="https://www.linkedin.com/in/antoine-morin-3a8a161a4/" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <span class="contact-icon">🔗</span> linkedin.com/in/antoine-morin
+        </a>
       </div>
+      <p class="contact-foot">Based in Ottawa, Ontario — usually replies within a day or two.</p>
     </div>
-
-    <div class="project-card">
-      <p class="project-tag">Power BI · Data Visualization · 2024</p>
-      <h3 class="project-title">KPI Power BI Dashboard</h3>
-      <ul class="project-desc">
-        <li>Built a Power BI dashboard using Kyndryl's Project Hub database to visualize account KPIs for project control managers.</li>
-        <li>Created DAX formulas to transform raw project data into meaningful performance metrics. The dashboard is used daily by management teams.</li>
-      </ul>
-      <div class="project-tools">
-        <span class="tool-chip">PowerBI</span>
-        <span class="tool-chip">Access</span>
-        <span class="tool-chip">Excel</span>
-        <span class="tool-chip">PowerApps</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <footer>
-  <span class="footer-name">Antoine Morin</span>
-  <span class="footer-copy">© 2026 · Ottawa, Canada</span>
+  <p class="footer-copy">© 2026 Antoine Morin · Ottawa, Canada</p>
 </footer>
 
 <script>
   const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); });
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });

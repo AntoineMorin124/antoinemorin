@@ -205,10 +205,10 @@
   .skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
   .stamp-list{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;align-content:start;}
   .stamp{
-    display:flex;align-items:center;gap:0.85rem;
-    font-size:0.92rem;font-weight:700;padding:1.1rem 1.4rem;border-radius:16px;
+    display:flex;align-items:center;gap:0.85rem;min-height:64px;
+    font-size:0.92rem;font-weight:700;padding:0.9rem 1.4rem;border-radius:16px;
     border:1px solid var(--line);color:var(--ink);background:var(--paper);
-    box-shadow:var(--shadow-sm);
+    box-shadow:var(--shadow-sm);line-height:1.3;
     transition:transform .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
   }
   .stamp::before{
@@ -234,9 +234,9 @@
   }
   .cert-logo svg{width:26px;height:26px;object-fit:contain;}
   .cert-logo img{width:100%;height:100%;object-fit:cover;}
-  .cert-body{flex:1;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;}
-  .cert-name{font-weight:700;font-size:0.92rem;color:var(--ink);}
-  .cert-date{font-size:0.78rem;color:var(--ink-soft);white-space:nowrap;font-weight:600;}
+  .cert-body{flex:1;display:flex;flex-direction:column;gap:0.3rem;}
+  .cert-name{font-weight:700;font-size:0.92rem;color:var(--ink);line-height:1.3;}
+  .cert-date{font-size:0.78rem;color:var(--ink-soft);font-weight:600;}
   .cert-date.progress{color:var(--apricot);}
   .badge-progress{
     font-size:0.68rem;font-weight:700;color:var(--apricot);background:rgba(91,122,149,0.14);
@@ -254,7 +254,7 @@
     position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);
     box-shadow:var(--shadow);background:var(--ink);
   }
-  .pdf-frame-outer iframe{display:block;width:100%;height:480px;border:none;}
+  .pdf-frame-outer iframe{display:block;width:100%;height:580px;border:none;}
 
   /* ---------- projects ---------- */
   #projects{background:var(--paper-soft);}

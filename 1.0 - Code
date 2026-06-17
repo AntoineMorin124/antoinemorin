@@ -393,7 +393,7 @@
 
     <div class="bio-grid fade-up">
       <div class="bio-photo-card">
-        <img src="About.jpeg" alt="Antoine Morin" />
+        <img src="2.1 - Profile.jpg" alt="Antoine Morin" />
       </div>
       <div class="bio-card">
         <p>I'm a 4th-year Bachelor of Commerce student at the Telfer School of Management, University of Ottawa, specializing in Finance and Business Technology Management. I'm bilingual with hands-on experience in analytics, ERP systems, and project management across both the federal government and the private sector.</p>
@@ -515,7 +515,7 @@
         <p style="font-weight:700; margin-bottom:1.1rem; color:var(--ink);">Certifications</p>
         <div class="cert-card">
           <div class="cert-logo">
-            <img src="Bloomberg.jpg" alt="Bloomberg" />
+            <img src="2.2 - Bloomberg.jpg" alt="Bloomberg" />
           </div>
           <div class="cert-body">
             <span class="cert-name">Bloomberg Spreadsheet Analysis Certificate</span>
@@ -524,7 +524,7 @@
         </div>
         <div class="cert-card">
           <div class="cert-logo">
-            <img src="Google.jpg" alt="Google" />
+            <img src="2.4 - Google.jpg" alt="Google" />
           </div>
           <div class="cert-body">
             <span class="cert-name">Google Data Analytics Professional Certificate</span>
@@ -533,7 +533,7 @@
         </div>
         <div class="cert-card">
           <div class="cert-logo">
-            <img src="VOB.jpg" alt="VOB" />
+            <img src="2.6 - VOB.jpg" alt="VOB" />
           </div>
           <div class="cert-body">
             <span class="cert-name">Market Insights / Competitive Intelligence Certificate</span>
@@ -542,7 +542,7 @@
         </div>
         <div class="cert-card">
           <div class="cert-logo">
-            <img src="FCC.jpg" alt="FCC" />
+            <img src="2.3 - FCC.jpg" alt="FCC" />
           </div>
           <div class="cert-body">
             <span class="cert-name">FreeCodeCamp Responsive Web Design Certificate</span>
@@ -551,7 +551,7 @@
         </div>
         <div class="cert-card">
           <div class="cert-logo">
-            <img src="TN.jpg" alt="TN" />
+            <img src="2.5 - TN.jpg" alt="TN" />
           </div>
           <div class="cert-body">
             <span class="cert-name">TECHNATION — 9 Student Ready Modules</span>
